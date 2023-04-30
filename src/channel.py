@@ -23,6 +23,30 @@ class Channel:
         self.video_count = self.channel['items'][0]['statistics']['videoCount']
         self.total_views = self.channel['items'][0]['statistics']['viewCount']
 
+    def __str__(self):
+        return f'{self.title} ({self.url})'
+
+    def __add__(self, other):
+        return self.total_subscribers + other.total_subscribers
+
+    def __sub__(self, other):
+        return self.total_subscribers - other.total_subscribers
+
+    def __gt__(self, other):
+        return self.total_subscribers > other.total_subscribers
+
+    def __ge__(self, other):
+        return self.total_subscribers >= other.total_subscribers
+
+    def __lt__(self, other):
+        return self.total_subscribers < other.total_subscribers
+
+    def __le__(self, other):
+        return self.total_subscribers <= other.total_subscribers
+
+    def __eq__(self, other):
+        return self.total_subscribers == other.total_subscribers
+
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
         print(json.dumps(self.channel, indent=2, ensure_ascii=False))
@@ -40,4 +64,3 @@ class Channel:
         """Сохраняет данные о канале в json файл."""
         with open(filename, 'w', encoding='utf8') as qq:
             qq.write(json.dumps(self.channel, ensure_ascii=False))
-
